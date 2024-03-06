@@ -3,21 +3,30 @@ package org.example;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// 메인 클래스.
 public class Main {
+    // 스터디룸 예약을 위한 클래스를 실행시키는 메인메소드.
     public static void main(String[] args) {
-        BookingDotCom.run();
+        BookingStuRoom.run();
     }
 
-    public class BookingDotCom {
+    // 스터디룸 예약 클래스.
+    public class BookingStuRoom {
+        // A, B, C 스터디룸.
         private static String[][] studyRoom = new String[14][4];
+
+        // 사용자들의 문의사항.
         private static Complain[] complain = new Complain[100];
-        private static int num = 0;
+
+        // 문의 글 개수.
+        private static int listNum = 0;
 
         public static void run() {
             initializeRooms();
             System.out.println("스터디룸 예약 프로그램입니다.");
 
             Scanner sc = new Scanner(System.in);
+            // 예약 프로그램 반복문.
             while(true) {
                 displayMenu();
                 try {
@@ -46,7 +55,7 @@ public class Main {
                 }
             }
         }
-
+        // 스터디룸 초기화.
         private static void initializeRooms() {
             studyRoom[0][0]="";
             studyRoom[0][1] = "A";
@@ -65,7 +74,7 @@ public class Main {
                 }
             }
         }
-
+        // 옵션.
         private static void displayMenu() {
             // 사용자의 종료 전까지 반복.
             System.out.println();
@@ -80,7 +89,7 @@ public class Main {
             System.out.print("작업을 선택하세요: ");
             System.out.println();
         }
-
+        // 스터디룸 예약 메소드.
         private static void reserveStudyRoom() {
             String room="";
             int start;
@@ -122,7 +131,7 @@ public class Main {
                 System.out.println("스터디룸 "+room+"은 존재하지 않습니다.\n"+"예약에 실패했습니다.");
             }
         }
-
+        // 스터디룸 예약 현황 메소드.
         private static void checkReservationStatus() {
             System.out.println("----- 예약 현황 -----");
             for (int i = 0; i < studyRoom.length; i++) {
@@ -132,7 +141,7 @@ public class Main {
                 System.out.println();
             }
         }
-
+        // 문의하기 메소드.
         private static void complaining() {
             String id="";
             String context = "";
@@ -144,12 +153,12 @@ public class Main {
             System.out.print("문의 내용: ");
             context = sc.nextLine();
 
-            complain[num++] = new Complain(id, context);
+            complain[listNum++] = new Complain(id, context);
         }
-
+        // 문의 글 보기 메소드.
         private static void displayComplains() {
             System.out.println("----- 문의 리스트 보기 -----");
-            for(int i = 0; i< num; i++) {
+            for(int i = 0; i< listNum; i++) {
                 complain[i].getString();
                 System.out.println();
             }
